@@ -1,145 +1,219 @@
-<!DOCTYPE html>
-<html lang="id">
+Baik! Saya akan convert semuanya menjadi file HTML murni dengan JavaScript vanilla yang dicampur dalam satu file.
+Action: file_editor create /app/frontend/public/index_standalone.html --file-text "<!DOCTYPE html>
+<html lang=\"id\">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Saya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Portfolio - Fatimah Az Zahra</title>
+    <script src=\"https://cdn.tailwindcss.com\"></script>
+    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap\" rel=\"stylesheet\">
     <style>
         * {
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .typing-animation {
-            overflow: hidden;
-            border-right: 3px solid #667eea;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #667eea }
-        }
-        
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .skill-bar {
-            transition: width 1.5s ease;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #000;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card {
+            transition: all 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-progress {
+            width: 0;
+            transition: width 1s ease-out;
+        }
+
+        .skill-progress.animate {
+            width: var(--progress-width);
+        }
+
+        .grayscale-hover {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+        }
+
+        .grayscale-hover:hover {
+            filter: grayscale(0%);
+        }
+
+        .icon-hover {
+            transition: transform 0.3s ease;
+        }
+
+        .icon-hover:hover {
+            transform: scale(1.25);
+        }
+
+        .navbar-blur {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class=\"bg-white text-gray-900\">
+
     <!-- Navbar -->
-    <nav class="gradient-bg text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold">Portofolio</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-gray-200 transition">Hompage</a>
-                    <a href="#about" class="hover:text-gray-200 transition">About</a>
-                    <a href="#skills" class="hover:text-gray-200 transition">Skills</a>
-                    <a href="#contact" class="hover:text-gray-200 transition">Contact</a>
+    <nav id=\"navbar\" class=\"fixed top-0 left-0 right-0 z-50 transition-all duration-300\">
+        <div class=\"container mx-auto px-6 py-4\">
+            <div class=\"flex items-center justify-between\">
+                <div class=\"text-2xl font-bold text-black\">Portfolio</div>
+                <div class=\"hidden md:flex space-x-8\">
+                    <a href=\"#home\" class=\"nav-link text-gray-700 hover:text-black transition-colors duration-300\">Homepage</a>
+                    <a href=\"#about\" class=\"nav-link text-gray-700 hover:text-black transition-colors duration-300\">About</a>
+                    <a href=\"#skills\" class=\"nav-link text-gray-700 hover:text-black transition-colors duration-300\">Skills</a>
+                    <a href=\"#contact\" class=\"nav-link text-gray-700 hover:text-black transition-colors duration-300\">Contact</a>
                 </div>
-                <button id="menuBtn" class="md:hidden">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <button id=\"menuBtn\" class=\"md:hidden text-black\">
+                    <svg id=\"menuIcon\" class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                        <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h16M4 18h16\"></path>
+                    </svg>
+                    <svg id=\"closeIcon\" class=\"w-6 h-6 hidden\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                        <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18L18 6M6 6l12 12\"></path>
                     </svg>
                 </button>
             </div>
-            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
-                <a href="#home" class="block hover:text-gray-200 transition">Homepage</a>
-                <a href="#about" class="block hover:text-gray-200 transition">About</a>
-                <a href="#skills" class="block hover:text-gray-200 transition">Skills</a>
-                <a href="#contact" class="block hover:text-gray-200 transition">Contact</a>
+            <div id=\"mobileMenu\" class=\"hidden md:hidden mt-4 space-y-2 bg-white rounded-lg p-4 shadow-lg\">
+                <a href=\"#home\" class=\"block w-full text-left py-2 text-gray-700 hover:text-black transition-colors\">Homepage</a>
+                <a href=\"#about\" class=\"block w-full text-left py-2 text-gray-700 hover:text-black transition-colors\">About</a>
+                <a href=\"#skills\" class=\"block w-full text-left py-2 text-gray-700 hover:text-black transition-colors\">Skills</a>
+                <a href=\"#contact\" class=\"block w-full text-left py-2 text-gray-700 hover:text-black transition-colors\">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="gradient-bg min-h-screen flex items-center pt-16">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="text-white md:w-1/2 fade-in">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-4">Hallo! I am</h1>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-yellow-300">Fatimah Az Zahra</h2>
-                    <a href="#about" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition inline-block">
+    <section id=\"home\" class=\"min-h-screen flex items-center pt-20 bg-gradient-to-br from-gray-50 to-white\">
+        <div class=\"container mx-auto px-6\">
+            <div class=\"flex flex-col md:flex-row items-center justify-between gap-12\">
+                <div class=\"md:w-1/2 fade-in-up\">
+                    <h1 class=\"text-5xl md:text-6xl font-bold mb-4 text-black\">Hallo! I am</h1>
+                    <h2 class=\"text-4xl md:text-5xl font-bold mb-6 text-gray-600\">Fatimah Az Zahra</h2>
+                    <p class=\"text-lg text-gray-600 mb-8 max-w-lg\">
+                        Software Engineering Student | Web Developer | UI/UX Enthusiast
+                    </p>
+                    <a href=\"#about\" class=\"inline-block bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl\">
                         Get to know me
                     </a>
                 </div>
-                  <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-4 border-white">
-          <img src="akuulagi.jpg" alt="Foto Fatimah Az Zahra" class="w-full h-full object-cover" />
-        </div>
-      </div>
+                <div class=\"md:w-1/2 flex justify-center fade-in-up\">
+                    <div class=\"relative\">
+                        <div class=\"w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-4 border-gray-200 hover:scale-105 transition-transform duration-500\">
+                            <img src=\"/akuulagi.jpg\" alt=\"Fatimah Az Zahra\" class=\"w-full h-full object-cover grayscale-hover\">
+                        </div>
+                        <div class=\"absolute -bottom-4 -right-4 w-32 h-32 bg-black rounded-full opacity-10 blur-3xl\"></div>
+                        <div class=\"absolute -top-4 -left-4 w-32 h-32 bg-gray-300 rounded-full opacity-20 blur-3xl\"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">About me</h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="card-hover bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-purple-600">Personal Data</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">Name:</span>
-                            <span class="text-gray-600">Fatimah Az Zahra</span>
+    <section id=\"about\" class=\"py-20 bg-white\">
+        <div class=\"container mx-auto px-6\">
+            <h2 class=\"text-4xl md:text-5xl font-bold text-center mb-16 text-black fade-in-up\">About me</h2>
+            <div class=\"grid md:grid-cols-2 gap-8 max-w-6xl mx-auto\">
+                <div class=\"card bg-white p-8 rounded-2xl shadow-lg border border-gray-200 fade-in-up\">
+                    <h3 class=\"text-2xl font-bold mb-6 text-black\">Personal Data</h3>
+                    <div class=\"space-y-4\">
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">Name:</span>
+                            <span class=\"text-gray-600\">Fatimah Az Zahra</span>
                         </div>
-                        <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">Nickname:</span>
-                            <span class="text-gray-600">Zahra</span>
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">Nickname:</span>
+                            <span class=\"text-gray-600\">Zahra</span>
                         </div>
-                        <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">TTL:</span>
-                            <span class="text-gray-600">Tangerang, 20 Agustus 2008</span>
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">TTL:</span>
+                            <span class=\"text-gray-600\">Tangerang, 20 Agustus 2008</span>
                         </div>
-                         <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">Hobby:</span>
-                            <span class="text-gray-600">Membaca Alternate Universe (Au), Bermain game</span>
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">Hobby:</span>
+                            <span class=\"text-gray-600\">Membaca Alternate Universe (Au), Bermain game</span>
                         </div>
-                        <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">School:</span>
-                            <span class="text-gray-600">SMKN 6 Malang</span>
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">School:</span>
+                            <span class=\"text-gray-600\">SMKN 6 Malang</span>
                         </div>
-                        <div class="flex items-start">
-                            <span class="font-semibold text-gray-700 w-32">Major:</span>
-                            <span class="text-gray-600">Rekayasa Perangkat Lunak</span>
+                        <div class=\"flex items-start border-b border-gray-100 pb-3\">
+                            <span class=\"font-semibold text-black w-32 flex-shrink-0\">Major:</span>
+                            <span class=\"text-gray-600\">Rekayasa Perangkat Lunak</span>
                         </div>
                     </div>
                 </div>
-                <div class="card-hover bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6 text-purple-600">Short Profile</h3>
-                    <p class="text-gray-600 leading-relaxed mb-4">
-                        Saya adalah seorang pelajar yang bersemangat dan memiliki rasa ingin tahu tinggi. Saya senang belajar hal baru, bekerja sama dengan orang lain, serta berusaha memberikan hasil terbaik dalam setiap tugas. Dengan sikap disiplin dan tanggung jawab, saya terus berupaya mengembangkan diri agar menjadi pribadi yang lebih baik.
+
+                <div class=\"card bg-white p-8 rounded-2xl shadow-lg border border-gray-200 fade-in-up\">
+                    <h3 class=\"text-2xl font-bold mb-6 text-black\">Short Profile</h3>
+                    <p class=\"text-gray-600 leading-relaxed\">
+                        Saya adalah seorang pelajar yang bersemangat dan memiliki rasa ingin tahu tinggi. 
+                        Saya senang belajar hal baru, bekerja sama dengan orang lain, serta berusaha memberikan 
+                        hasil terbaik dalam setiap tugas. Dengan sikap disiplin dan tanggung jawab, saya terus 
+                        berupaya mengembangkan diri agar menjadi pribadi yang lebih baik.
                     </p>
                 </div>
             </div>
@@ -147,147 +221,229 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skilss</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card-hover bg-white p-6 rounded-xl shadow-lg">
-                    <div class="text-purple-600 mb-4">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+    <section id=\"skills\" class=\"py-20 bg-gray-50\">
+        <div class=\"container mx-auto px-6\">
+            <h2 class=\"text-4xl md:text-5xl font-bold text-center mb-16 text-black fade-in-up\">Skills</h2>
+            <div class=\"grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto\">
+                
+                <!-- Web Development -->
+                <div class=\"card bg-white p-6 rounded-xl shadow-lg border border-gray-200 fade-in-up skill-card\">
+                    <div class=\"text-black mb-4 icon-hover\">
+                        <svg class=\"w-10 h-10\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\" stroke-width=\"2\"></rect>
+                            <line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\" stroke-width=\"2\"></line>
+                            <line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\" stroke-width=\"2\"></line>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Web Development</h3>
-                    <p class="text-gray-600">HTML, CSS, JavaScript, ReactJS</p>
-                    <div class="mt-4 bg-gray-200 rounded-full h-2">
-                        <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+                    <h3 class=\"text-xl font-bold mb-2 text-black\">Web Development</h3>
+                    <p class=\"text-gray-600 mb-4\">HTML, CSS, JavaScript, ReactJS</p>
+                    <div class=\"bg-gray-200 rounded-full h-2 overflow-hidden\">
+                        <div class=\"skill-progress bg-black h-2 rounded-full\" style=\"--progress-width: 85%\"></div>
                     </div>
+                    <div class=\"text-right mt-2 text-sm text-gray-500 font-medium\">85%</div>
                 </div>
 
-                <div class="card-hover bg-white p-6 rounded-xl shadow-lg">
-                    <div class="text-purple-600 mb-4">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                <!-- Programming -->
+                <div class=\"card bg-white p-6 rounded-xl shadow-lg border border-gray-200 fade-in-up skill-card\">
+                    <div class=\"text-black mb-4 icon-hover\">
+                        <svg class=\"w-10 h-10\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <polyline points=\"16 18 22 12 16 6\" stroke-width=\"2\"></polyline>
+                            <polyline points=\"8 6 2 12 8 18\" stroke-width=\"2\"></polyline>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Programming</h3>
-                    <p class="text-gray-600">PHP, C#</p>
-                    <div class="mt-4 bg-gray-200 rounded-full h-2">
-                        <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 80%"></div>
+                    <h3 class=\"text-xl font-bold mb-2 text-black\">Programming</h3>
+                    <p class=\"text-gray-600 mb-4\">PHP, C#</p>
+                    <div class=\"bg-gray-200 rounded-full h-2 overflow-hidden\">
+                        <div class=\"skill-progress bg-black h-2 rounded-full\" style=\"--progress-width: 80%\"></div>
                     </div>
+                    <div class=\"text-right mt-2 text-sm text-gray-500 font-medium\">80%</div>
                 </div>
 
-                <div class="card-hover bg-white p-6 rounded-xl shadow-lg">
-                    <div class="text-purple-600 mb-4">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"></path>
-                            <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"></path>
-                            <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"></path>
+                <!-- Database -->
+                <div class=\"card bg-white p-6 rounded-xl shadow-lg border border-gray-200 fade-in-up skill-card\">
+                    <div class=\"text-black mb-4 icon-hover\">
+                        <svg class=\"w-10 h-10\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\" stroke-width=\"2\"></ellipse>
+                            <path d=\"M21 12c0 1.66-4 3-9 3s-9-1.34-9-3\" stroke-width=\"2\"></path>
+                            <path d=\"M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5\" stroke-width=\"2\"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Database</h3>
-                    <p class="text-gray-600">MySQL, SQL server</p>
-                    <div class="mt-4 bg-gray-200 rounded-full h-2">
-                        <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 75%"></div>
+                    <h3 class=\"text-xl font-bold mb-2 text-black\">Database</h3>
+                    <p class=\"text-gray-600 mb-4\">MySQL, SQL Server</p>
+                    <div class=\"bg-gray-200 rounded-full h-2 overflow-hidden\">
+                        <div class=\"skill-progress bg-black h-2 rounded-full\" style=\"--progress-width: 75%\"></div>
                     </div>
+                    <div class=\"text-right mt-2 text-sm text-gray-500 font-medium\">75%</div>
                 </div>
 
-                <div class="card-hover bg-white p-6 rounded-xl shadow-lg">
-                    <div class="text-purple-600 mb-4">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+                <!-- UI/UX Design -->
+                <div class=\"card bg-white p-6 rounded-xl shadow-lg border border-gray-200 fade-in-up skill-card\">
+                    <div class=\"text-black mb-4 icon-hover\">
+                        <svg class=\"w-10 h-10\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\" stroke-width=\"2\"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">UI/UX Design</h3>
-                    <p class="text-gray-600">Figma</p>
-                    <div class="mt-4 bg-gray-200 rounded-full h-2">
-                        <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 70%"></div>
+                    <h3 class=\"text-xl font-bold mb-2 text-black\">UI/UX Design</h3>
+                    <p class=\"text-gray-600 mb-4\">Figma</p>
+                    <div class=\"bg-gray-200 rounded-full h-2 overflow-hidden\">
+                        <div class=\"skill-progress bg-black h-2 rounded-full\" style=\"--progress-width: 70%\"></div>
                     </div>
+                    <div class=\"text-right mt-2 text-sm text-gray-500 font-medium\">70%</div>
                 </div>
 
-
-                <div class="card-hover bg-white p-6 rounded-xl shadow-lg">
-                    <div class="text-purple-600 mb-4">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                <!-- Version Control -->
+                <div class=\"card bg-white p-6 rounded-xl shadow-lg border border-gray-200 fade-in-up skill-card\">
+                    <div class=\"text-black mb-4 icon-hover\">
+                        <svg class=\"w-10 h-10\" fill=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <path d=\"M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z\"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Version Control</h3>
-                    <p class="text-gray-600">GitHub</p>
-                    <div class="mt-4 bg-gray-200 rounded-full h-2">
-                        <div class="skill-bar bg-purple-600 h-2 rounded-full" style="width: 82%"></div>
+                    <h3 class=\"text-xl font-bold mb-2 text-black\">Version Control</h3>
+                    <p class=\"text-gray-600 mb-4\">GitHub</p>
+                    <div class=\"bg-gray-200 rounded-full h-2 overflow-hidden\">
+                        <div class=\"skill-progress bg-black h-2 rounded-full\" style=\"--progress-width: 82%\"></div>
                     </div>
+                    <div class=\"text-right mt-2 text-sm text-gray-500 font-medium\">82%</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-   <section id="contact" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Contact me</h2>
-            <div class="max-w-2xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="card-hover bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-xl shadow-lg text-center">
-                        <div class="text-purple-600 mb-4 flex justify-center">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+    <section id=\"contact\" class=\"py-20 bg-white\">
+        <div class=\"container mx-auto px-6\">
+            <h2 class=\"text-4xl md:text-5xl font-bold text-center mb-16 text-black fade-in-up\">Contact me</h2>
+            <div class=\"max-w-3xl mx-auto\">
+                <div class=\"grid md:grid-cols-2 gap-8\">
+                    <!-- Email Card -->
+                    <div class=\"card bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-center fade-in-up\">
+                        <div class=\"text-black mb-4 flex justify-center icon-hover\">
+                            <svg class=\"w-12 h-12\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                                <path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\" stroke-width=\"2\"></path>
+                                <polyline points=\"22,6 12,13 2,6\" stroke-width=\"2\"></polyline>
                             </svg>
                         </div>
-                        <h3 class="font-bold text-lg mb-2">Email</h3>
-                        <p class="text-gray-600">fazzahra0123@gmail.com</p>
+                        <h3 class=\"font-bold text-xl mb-2 text-black\">Email</h3>
+                        <p class=\"text-gray-600 break-words\">fazzahra0123@gmail.com</p>
                     </div>
-                    <div class="card-hover bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl shadow-lg text-center">
-                        <div class="text-purple-600 mb-4 flex justify-center">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                            </svg>
+
+                    <!-- Social Media Card -->
+                    <div class=\"card bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-center fade-in-up\">
+                        <h3 class=\"font-bold text-xl mb-6 text-black\">Social Media</h3>
+                        <div class=\"flex justify-center space-x-6\">
+                            <a href=\"https://github.com/Azzaww\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-gray-700 hover:text-black transition-all duration-300 icon-hover\">
+                                <svg class=\"w-12 h-12\" fill=\"currentColor\" viewBox=\"0 0 24 24\">
+                                    <path d=\"M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z\"/>
+                                </svg>
+                            </a>
+                            <a href=\"https://instagram.com/ffmhazzhr\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-gray-700 hover:text-black transition-all duration-300 icon-hover\">
+                                <svg class=\"w-12 h-12\" fill=\"currentColor\" viewBox=\"0 0 24 24\">
+                                    <path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z\"/>
+                                </svg>
+                            </a>
                         </div>
-                        <h3 class="font-bold text-lg mb-2">Telephone</h3>
-                        <p class="text-gray-600">08xxx</p> 
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
     <!-- Footer -->
-    <footer class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p class="mb-4">&copy; 2025 Fatimah Az Zahra. All rights reserved.</p>
-            <div class="flex justify-center space-x-6">
-                <a href="#" class="hover:text-gray-200 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-                <a href="https://github.com/Azzaww" class="hover:text-gray-200 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="https://instagram.com/ffmhazzhr" class="hover:text-gray-200 transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </a>
+    <footer class=\"bg-black text-white py-12\">
+        <div class=\"container mx-auto px-6\">
+            <div class=\"text-center\">
+                <p class=\"mb-6 text-gray-400\">&copy; 2025 Fatimah Az Zahra. All rights reserved.</p>
+                <div class=\"flex justify-center space-x-6\">
+                    <a href=\"https://github.com/Azzaww\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-gray-400 hover:text-white transition-all duration-300 icon-hover\">
+                        <svg class=\"w-6 h-6\" fill=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <path d=\"M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z\"/>
+                        </svg>
+                    </a>
+                    <a href=\"https://instagram.com/ffmhazzhr\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-gray-400 hover:text-white transition-all duration-300 icon-hover\">
+                        <svg class=\"w-6 h-6\" fill=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z\"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'navbar-blur', 'shadow-md');
+            } else {
+                navbar.classList.remove('bg-white', 'navbar-blur', 'shadow-md');
+            }
         });
 
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Skill progress bar animation
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        setTimeout(() => {
+                            bar.classList.add('animate');
+                        }, 200);
+                    });
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe skills section
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            skillObserver.observe(skillsSection);
+        }
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -296,35 +452,11 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    mobileMenu.classList.add('hidden');
                 }
             });
         });
-
-        // Skill Bar Animation on Scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillBars = entry.target.querySelectorAll('.skill-bar');
-                    skillBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0%';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
-                }
-            });
-        }, observerOptions);
-
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
     </script>
 </body>
 </html>
+"
+Observation: Create successful: /app/frontend/public/index_standalone.html
